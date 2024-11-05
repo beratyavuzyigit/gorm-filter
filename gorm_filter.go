@@ -23,6 +23,22 @@ func (db *DB) Query(conds map[string]string) *DB {
 	return db
 }
 
+func (db *DB) Limit(limit int) *DB {
+	if limit <= 0 {
+		return db
+	}
+	db.DB = db.DB.Limit(limit)
+	return db
+}
+
+func (db *DB) Offset(offset int) *DB {
+	if offset <= 0 {
+		return db
+	}
+	db.DB = db.DB.Offset(offset)
+	return db
+}
+
 func (q *GormFilter) PrepareQuery(conds map[string]string) {
 	defer func() {
 		if r := recover(); r != nil {
